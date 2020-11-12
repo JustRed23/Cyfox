@@ -1,16 +1,24 @@
 package dev.JustRed23.cyfox;
 
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import static dev.JustRed23.cyfox.BotLogger.*;
 
 public class Listener extends ListenerAdapter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Listener.class);
-
     public void onReady(@NotNull ReadyEvent event) {
-        LOGGER.info("{} is ready", event.getJDA().getSelfUser().getAsTag());
+        info("{} is ready", event.getJDA().getSelfUser().getAsTag());
+    }
+
+    @Override
+    public void onGuildMessageReceived(@NotNull GuildMessageReceivedEvent event) {
+        String prefix = Config.get("prefix");
+        String messageRaw = event.getMessage().getContentRaw();
+
+        if (messageRaw.equalsIgnoreCase(prefix + "shutdown") && event.getAuthor().getId().equals(Config.get("owner_id")))
+            Bot.shutdown(event);
     }
 }
