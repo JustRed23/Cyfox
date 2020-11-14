@@ -23,11 +23,6 @@ public class Listener extends ListenerAdapter {
         String prefix = Config.get("prefix");
         String messageRaw = event.getMessage().getContentRaw();
 
-        if (messageRaw.equalsIgnoreCase(prefix + "shutdown") && user.getId().equals(Config.get("owner_id"))) {
-            Bot.shutdown(event);
-            return;
-        }
-
         if (messageRaw.startsWith(prefix)) manager.handle(event);
     }
 }
