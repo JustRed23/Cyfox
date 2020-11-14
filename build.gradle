@@ -20,6 +20,7 @@ dependencies {
     compile 'me.duncte123:botCommons:2.0.119'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
     compile 'io.github.cdimascio:java-dotenv:5.2.2'
+    compile 'org.reflections:reflections:0.9.12'
 }
 
 compileJava.options.encoding = 'UTF-8'

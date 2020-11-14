@@ -3,6 +3,7 @@ package dev.JustRed23.cyfox;
 import dev.JustRed23.cyfox.command.CommandContext;
 import dev.JustRed23.cyfox.command.ICommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import org.reflections.Reflections;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -10,9 +11,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static dev.JustRed23.cyfox.BotLogger.*;
+
 public class CommandManager {
 
     private final List<ICommand> commands = new ArrayList<>();
+
+    public CommandManager() {
+        addCommands();
+        commands.forEach((command) -> info("Loaded {} command", command.getName()));
+    }
+
+    private void addCommands() {
+        Reflections reflections = new Reflections(getClass().getPackage().getName() + ".command.commands");
+        reflections.getSubTypesOf(ICommand.class).forEach(aClass -> {
+            try {
+                ICommand command = aClass.getConstructor().newInstance();
+                addCommand(command);
+            } catch (Exception e) {
+                warn("A command could not be loaded: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+    }
 
     private void addCommand(ICommand cmd) {
         boolean nameFound = this.commands.stream().anyMatch((it) -> it.getName().equalsIgnoreCase(cmd.getName()));
