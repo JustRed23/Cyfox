@@ -23,7 +23,7 @@ public class Bot {
                 GatewayIntent.GUILD_EMOJIS
         )
                 .addEventListeners(new Listener())
-                .setActivity(EntityBuilder.createActivity("Debugging...", null, Activity.ActivityType.CUSTOM_STATUS))
+                .setActivity(Activity.listening(Config.get("prefix")))
                 .build();
 
     }
@@ -33,7 +33,7 @@ public class Bot {
     }
 
     public static void shutdown(GuildMessageReceivedEvent event) {
-        info("Shutting down");
+        info("Shutting down...");
         event.getJDA().shutdown();
         BotCommons.shutdown(event.getJDA());
     }
