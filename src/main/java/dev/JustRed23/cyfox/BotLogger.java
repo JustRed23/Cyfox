@@ -30,4 +30,12 @@ public class BotLogger {
     static void error(String formattedMsg, Object... args) {
         LOGGER.error(formattedMsg, args);
     }
+
+    static void debug(String msg) {
+        LOGGER.debug(msg);
+    }
+
+    static void debug(String formattedMsg, Object... args) {
+        LOGGER.debug(formattedMsg, args);
+    }
 }
