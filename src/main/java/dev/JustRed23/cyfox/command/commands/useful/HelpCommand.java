@@ -1,4 +1,4 @@
-package dev.JustRed23.cyfox.command.commands;
+package dev.JustRed23.cyfox.command.commands.useful;
 
 import dev.JustRed23.cyfox.CommandManager;
 import dev.JustRed23.cyfox.command.CommandCategory;
