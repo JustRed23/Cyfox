@@ -1,12 +1,10 @@
 package dev.JustRed23.cyfox;
 
 import me.duncte123.botcommons.BotCommons;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.internal.entities.EntityBuilder;
 
 import javax.security.auth.login.LoginException;
 
