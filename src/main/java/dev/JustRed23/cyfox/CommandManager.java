@@ -43,12 +43,16 @@ public class CommandManager {
         commands.add(cmd);
     }
 
+    public List<ICommand> getCommands() {
+        return commands;
+    }
+
     @Nullable
-    private ICommand getCommand(String search) {
+    public ICommand getCommand(String search) {
         String searchLower = search.toLowerCase();
 
         for (ICommand cmd : this.commands) {
-            if (cmd.getName().equals(searchLower) || cmd.getAliases().contains(searchLower)) return cmd;
+            if (cmd.getName().equals(searchLower)) return cmd;
         }
 
         return null;
