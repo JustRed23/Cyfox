@@ -1,5 +1,6 @@
 package dev.JustRed23.cyfox.command.commands;
 
+import dev.JustRed23.cyfox.command.CommandCategory;
 import dev.JustRed23.cyfox.command.CommandContext;
 import dev.JustRed23.cyfox.command.ICommand;
 import net.dv8tion.jda.api.JDA;
@@ -16,5 +17,13 @@ public class PingCommand implements ICommand {
 
     public String getName() {
         return "ping";
+    }
+
+    public String getInfo() {
+        return "Displays the current ping from the bot to the discord servers";
+    }
+
+    public CommandCategory getCategory() {
+        return CommandCategory.USEFUL;
     }
 }
