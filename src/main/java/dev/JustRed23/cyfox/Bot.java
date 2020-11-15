@@ -12,7 +12,12 @@ import static dev.JustRed23.cyfox.BotLogger.*;
 
 public class Bot {
 
-    private Bot() throws LoginException {
+    private Bot() throws Exception {
+
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+            error("An uncaught exception has occurred in thread " + t.getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        });
 
         JDABuilder.createDefault(Config.get("token"),
                 GatewayIntent.GUILD_MEMBERS,
@@ -23,10 +28,9 @@ public class Bot {
                 .addEventListeners(new Listener())
                 .setActivity(Activity.listening(Config.get("prefix")))
                 .build();
-
     }
 
-    public static void main(String[] args) throws LoginException {
+    public static void main(String[] args) throws Exception {
         new Bot();
     }
 
