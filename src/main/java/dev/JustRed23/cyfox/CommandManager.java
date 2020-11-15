@@ -1,5 +1,6 @@
 package dev.JustRed23.cyfox;
 
+import dev.JustRed23.cyfox.command.CommandCategory;
 import dev.JustRed23.cyfox.command.CommandContext;
 import dev.JustRed23.cyfox.command.ICommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -10,14 +11,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static dev.JustRed23.cyfox.BotLogger.*;
 
 public class CommandManager {
 
+    private static CommandManager instance;
     private final List<ICommand> commands = new ArrayList<>();
 
     public CommandManager() {
+        instance = this;
         addCommands();
         commands.forEach((command) -> info("Loaded {} command", command.getName()));
     }
@@ -58,6 +62,10 @@ public class CommandManager {
         return null;
     }
 
+    public List<ICommand> getCommandsByCategory(CommandCategory category) {
+        return getCommands().stream().filter(iCommand -> iCommand.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
     void handle(GuildMessageReceivedEvent event) {
         String[] split = event.getMessage().getContentRaw().replaceFirst("(?i)" + Pattern.quote(Config.get("prefix")), "").split("\\s+");
         String invoke = split[0].toLowerCase();
@@ -72,5 +80,9 @@ public class CommandManager {
 
             cmd.handle(ctx);
         }
+    }
+
+    public static CommandManager getInstance() {
+        return instance;
     }
 }
